@@ -1,0 +1,11 @@
+{
+  "team_number": "T0134",
+  "group_lead": { "name": "Rishi Raj Agarwal", "enrollment_no": "2501010377", "github": "RxThetaxx" },
+  "members": [
+    { "name": "Pratham Madaan", "enrollment_no": "2501010348", "github": "madaanpratham80-cpu" },
+    { "name": "Piyush Purkait", "enrollment_no": "2501010334", "github": "Piyushdev-X" },
+    { "name": "Khyati Dash", "enrollment_no": "2501010223", "github": "khyati211012008" }
+  ],
+  "postgres_version": "",
+  "laptop_used_for_benchmarks": ""
+}
