@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Rishi Raj Agarwal | 2501010377 | RxThetaxx |
+| Member 2 | Pratham Madaan | 2501010348 | madaanpratham80-cpu |
+| Member 3 | Piyush Purkait | 2501010334 | Piyushdev-X |
+| Member 4 | Khyati Dash | 2501010223 | khyati211012008 |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0134 · **Section:** C/D/E · **Repository URL:** https://github.com/madaanpratham80-cpu/DE_Kaizen_2026
 
 ---
 
