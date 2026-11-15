@@ -6,6 +6,6 @@
     { "name": "Piyush Purkait", "enrollment_no": "2501010334", "github": "Piyushdev-X" },
     { "name": "Khyati Dash", "enrollment_no": "2501010223", "github": "khyati211012008" }
   ],
-  "postgres_version": "18.4",
+  "postgres_version": "18.7",
   "laptop_used_for_benchmarks": "MacBook Pro 14-inch, Apple M4, 16 GB RAM"
 }
