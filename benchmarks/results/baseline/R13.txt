@@ -1,0 +1,42 @@
+=== R13 run 1 ===
+Seq Scan on professionals p  (cost=4448.91..4512.41 rows=1110 width=22) (actual time=22.211..22.212 rows=0.00 loops=1)
+  Filter: ((NOT (ANY (pro_id = (hashed SubPlan 1).col1))) AND ((status)::text = 'ACTIVE'::text))
+  Rows Removed by Filter: 2500
+  Buffers: shared hit=2570
+  SubPlan 1
+    ->  Seq Scan on bookings b  (cost=0.00..4419.00 rows=11965 width=4) (actual time=0.043..19.204 rows=12123.00 loops=1)
+          Filter: ((status)::text = 'CANCELLED_BY_CUSTOMER'::text)
+          Rows Removed by Filter: 137877
+          Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=113
+Planning Time: 3.940 ms
+Execution Time: 22.361 ms
+=== R13 run 2 ===
+Seq Scan on professionals p  (cost=4448.91..4512.41 rows=1110 width=22) (actual time=22.152..22.152 rows=0.00 loops=1)
+  Filter: ((NOT (ANY (pro_id = (hashed SubPlan 1).col1))) AND ((status)::text = 'ACTIVE'::text))
+  Rows Removed by Filter: 2500
+  Buffers: shared hit=2570
+  SubPlan 1
+    ->  Seq Scan on bookings b  (cost=0.00..4419.00 rows=11965 width=4) (actual time=0.018..19.474 rows=12123.00 loops=1)
+          Filter: ((status)::text = 'CANCELLED_BY_CUSTOMER'::text)
+          Rows Removed by Filter: 137877
+          Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=113
+Planning Time: 2.735 ms
+Execution Time: 22.259 ms
+=== R13 run 3 ===
+Seq Scan on professionals p  (cost=4448.91..4512.41 rows=1110 width=22) (actual time=24.909..24.909 rows=0.00 loops=1)
+  Filter: ((NOT (ANY (pro_id = (hashed SubPlan 1).col1))) AND ((status)::text = 'ACTIVE'::text))
+  Rows Removed by Filter: 2500
+  Buffers: shared hit=2570
+  SubPlan 1
+    ->  Seq Scan on bookings b  (cost=0.00..4419.00 rows=11965 width=4) (actual time=0.023..21.357 rows=12123.00 loops=1)
+          Filter: ((status)::text = 'CANCELLED_BY_CUSTOMER'::text)
+          Rows Removed by Filter: 137877
+          Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=113
+Planning Time: 3.652 ms
+Execution Time: 25.028 ms

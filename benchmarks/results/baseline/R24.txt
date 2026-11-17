@@ -1,0 +1,51 @@
+=== R24 run 1 ===
+Sort  (cost=4883.98..4886.92 rows=1177 width=48) (actual time=23.821..23.823 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2547
+  ->  HashAggregate  (cost=4806.29..4823.95 rows=1177 width=48) (actual time=23.759..23.771 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=2544
+        ->  Seq Scan on bookings  (cost=0.00..4797.07 rows=1229 width=11) (actual time=1.401..23.458 rows=1228.00 loops=1)
+              Filter: ((cancellation_fee > '0'::numeric) AND (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone))
+              Rows Removed by Filter: 148772
+              Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=115
+Planning Time: 1.928 ms
+Execution Time: 23.932 ms
+=== R24 run 2 ===
+Sort  (cost=4883.98..4886.92 rows=1177 width=48) (actual time=32.427..32.429 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2547
+  ->  HashAggregate  (cost=4806.29..4823.95 rows=1177 width=48) (actual time=32.359..32.371 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=2544
+        ->  Seq Scan on bookings  (cost=0.00..4797.07 rows=1229 width=11) (actual time=1.362..31.930 rows=1228.00 loops=1)
+              Filter: ((cancellation_fee > '0'::numeric) AND (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone))
+              Rows Removed by Filter: 148772
+              Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=115
+Planning Time: 3.144 ms
+Execution Time: 32.529 ms
+=== R24 run 3 ===
+Sort  (cost=4883.98..4886.92 rows=1177 width=48) (actual time=33.454..33.459 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2547
+  ->  HashAggregate  (cost=4806.29..4823.95 rows=1177 width=48) (actual time=33.391..33.408 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=2544
+        ->  Seq Scan on bookings  (cost=0.00..4797.07 rows=1229 width=11) (actual time=1.284..32.956 rows=1228.00 loops=1)
+              Filter: ((cancellation_fee > '0'::numeric) AND (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone))
+              Rows Removed by Filter: 148772
+              Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=115
+Planning Time: 2.035 ms
+Execution Time: 33.570 ms

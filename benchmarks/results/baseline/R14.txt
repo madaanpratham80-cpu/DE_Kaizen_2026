@@ -1,0 +1,72 @@
+=== R14 run 1 ===
+GroupAggregate  (cost=6321.12..6970.53 rows=23615 width=74) (actual time=44.839..50.070 rows=840.00 loops=1)
+  Group Key: s.category_id, (EXTRACT(isodow FROM b.scheduled_start)), (EXTRACT(hour FROM b.scheduled_start))
+  Buffers: shared hit=2551
+  ->  Sort  (cost=6321.12..6380.16 rows=23615 width=66) (actual time=44.802..46.121 rows=23919.00 loops=1)
+        Sort Key: s.category_id, (EXTRACT(isodow FROM b.scheduled_start)), (EXTRACT(hour FROM b.scheduled_start))
+        Sort Method: quicksort  Memory: 1516kB
+        Buffers: shared hit=2551
+        ->  Hash Join  (cost=2.35..4605.80 rows=23615 width=66) (actual time=0.105..25.691 rows=23919.00 loops=1)
+              Hash Cond: (b.service_id = s.service_id)
+              Buffers: shared hit=2545
+              ->  Seq Scan on bookings b  (cost=0.00..4419.00 rows=23615 width=10) (actual time=0.022..16.191 rows=23919.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 126081
+                    Buffers: shared hit=2544
+              ->  Hash  (cost=1.60..1.60 rows=60 width=4) (actual time=0.054..0.054 rows=60.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=4) (actual time=0.022..0.026 rows=60.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=185
+Planning Time: 3.866 ms
+Execution Time: 50.413 ms
+=== R14 run 2 ===
+GroupAggregate  (cost=6321.12..6970.53 rows=23615 width=74) (actual time=44.714..49.822 rows=840.00 loops=1)
+  Group Key: s.category_id, (EXTRACT(isodow FROM b.scheduled_start)), (EXTRACT(hour FROM b.scheduled_start))
+  Buffers: shared hit=2551
+  ->  Sort  (cost=6321.12..6380.16 rows=23615 width=66) (actual time=44.691..45.784 rows=23919.00 loops=1)
+        Sort Key: s.category_id, (EXTRACT(isodow FROM b.scheduled_start)), (EXTRACT(hour FROM b.scheduled_start))
+        Sort Method: quicksort  Memory: 1516kB
+        Buffers: shared hit=2551
+        ->  Hash Join  (cost=2.35..4605.80 rows=23615 width=66) (actual time=0.067..26.572 rows=23919.00 loops=1)
+              Hash Cond: (b.service_id = s.service_id)
+              Buffers: shared hit=2545
+              ->  Seq Scan on bookings b  (cost=0.00..4419.00 rows=23615 width=10) (actual time=0.020..16.766 rows=23919.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 126081
+                    Buffers: shared hit=2544
+              ->  Hash  (cost=1.60..1.60 rows=60 width=4) (actual time=0.021..0.021 rows=60.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=4) (actual time=0.006..0.010 rows=60.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=185
+Planning Time: 3.641 ms
+Execution Time: 50.173 ms
+=== R14 run 3 ===
+GroupAggregate  (cost=6321.12..6970.53 rows=23615 width=74) (actual time=46.981..52.391 rows=840.00 loops=1)
+  Group Key: s.category_id, (EXTRACT(isodow FROM b.scheduled_start)), (EXTRACT(hour FROM b.scheduled_start))
+  Buffers: shared hit=2551
+  ->  Sort  (cost=6321.12..6380.16 rows=23615 width=66) (actual time=46.953..48.475 rows=23919.00 loops=1)
+        Sort Key: s.category_id, (EXTRACT(isodow FROM b.scheduled_start)), (EXTRACT(hour FROM b.scheduled_start))
+        Sort Method: quicksort  Memory: 1516kB
+        Buffers: shared hit=2551
+        ->  Hash Join  (cost=2.35..4605.80 rows=23615 width=66) (actual time=0.120..28.158 rows=23919.00 loops=1)
+              Hash Cond: (b.service_id = s.service_id)
+              Buffers: shared hit=2545
+              ->  Seq Scan on bookings b  (cost=0.00..4419.00 rows=23615 width=10) (actual time=0.037..17.696 rows=23919.00 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 126081
+                    Buffers: shared hit=2544
+              ->  Hash  (cost=1.60..1.60 rows=60 width=4) (actual time=0.046..0.047 rows=60.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=4) (actual time=0.028..0.032 rows=60.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=185
+Planning Time: 4.559 ms
+Execution Time: 52.808 ms

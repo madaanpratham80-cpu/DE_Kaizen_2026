@@ -1,0 +1,63 @@
+=== R12 run 1 ===
+GroupAggregate  (cost=5090.09..5104.28 rows=104 width=48) (actual time=38.845..42.917 rows=6.00 loops=1)
+  Group Key: (date_trunc('month'::text, booked_at))
+  Buffers: shared hit=2582
+  ->  Gather Merge  (cost=5090.09..5101.94 rows=104 width=11) (actual time=38.616..42.380 rows=4543.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=2582
+        ->  Sort  (cost=4090.08..4090.23 rows=61 width=11) (actual time=16.170..16.243 rows=2271.50 loops=2)
+              Sort Key: (date_trunc('month'::text, booked_at))
+              Sort Method: quicksort  Memory: 334kB
+              Buffers: shared hit=2582
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Seq Scan on bookings b  (cost=0.00..4088.27 rows=61 width=11) (actual time=9.733..15.612 rows=2271.50 loops=2)
+                    Filter: ((discount > '0'::numeric) AND (EXTRACT(year FROM booked_at) = '2026'::numeric))
+                    Rows Removed by Filter: 72728
+                    Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=124 read=1
+Planning Time: 2.749 ms
+Execution Time: 43.454 ms
+=== R12 run 2 ===
+GroupAggregate  (cost=5090.09..5104.28 rows=104 width=48) (actual time=38.179..42.565 rows=6.00 loops=1)
+  Group Key: (date_trunc('month'::text, booked_at))
+  Buffers: shared hit=2582
+  ->  Gather Merge  (cost=5090.09..5101.94 rows=104 width=11) (actual time=37.840..41.837 rows=4543.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=2582
+        ->  Sort  (cost=4090.08..4090.23 rows=61 width=11) (actual time=15.008..15.099 rows=2271.50 loops=2)
+              Sort Key: (date_trunc('month'::text, booked_at))
+              Sort Method: quicksort  Memory: 334kB
+              Buffers: shared hit=2582
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Seq Scan on bookings b  (cost=0.00..4088.27 rows=61 width=11) (actual time=10.086..14.625 rows=2271.50 loops=2)
+                    Filter: ((discount > '0'::numeric) AND (EXTRACT(year FROM booked_at) = '2026'::numeric))
+                    Rows Removed by Filter: 72728
+                    Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=125
+Planning Time: 2.004 ms
+Execution Time: 42.709 ms
+=== R12 run 3 ===
+GroupAggregate  (cost=5090.09..5104.28 rows=104 width=48) (actual time=38.272..44.585 rows=6.00 loops=1)
+  Group Key: (date_trunc('month'::text, booked_at))
+  Buffers: shared hit=2582
+  ->  Gather Merge  (cost=5090.09..5101.94 rows=104 width=11) (actual time=37.930..43.628 rows=4543.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=2582
+        ->  Sort  (cost=4090.08..4090.23 rows=61 width=11) (actual time=18.324..18.488 rows=2271.50 loops=2)
+              Sort Key: (date_trunc('month'::text, booked_at))
+              Sort Method: quicksort  Memory: 334kB
+              Buffers: shared hit=2582
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Seq Scan on bookings b  (cost=0.00..4088.27 rows=61 width=11) (actual time=11.826..17.807 rows=2271.50 loops=2)
+                    Filter: ((discount > '0'::numeric) AND (EXTRACT(year FROM booked_at) = '2026'::numeric))
+                    Rows Removed by Filter: 72728
+                    Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=125
+Planning Time: 1.806 ms
+Execution Time: 44.752 ms

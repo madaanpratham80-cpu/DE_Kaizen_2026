@@ -1,0 +1,33 @@
+=== W05 run 1 ===
+Update on bookings  (cost=0.00..4794.00 rows=0 width=0) (actual time=20.570..20.570 rows=0.00 loops=1)
+  Buffers: shared hit=3902 dirtied=88
+  ->  Seq Scan on bookings  (cost=0.00..4794.00 rows=50 width=84) (actual time=18.418..18.608 rows=154.00 loops=1)
+        Filter: ((started_at IS NULL) AND (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'ASSIGNED'::text))
+        Rows Removed by Filter: 149846
+        Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=66
+Planning Time: 1.883 ms
+Execution Time: 20.737 ms
+=== W05 run 2 ===
+Update on bookings  (cost=0.00..4794.00 rows=0 width=0) (actual time=19.356..19.357 rows=0.00 loops=1)
+  Buffers: shared hit=3810 dirtied=3
+  ->  Seq Scan on bookings  (cost=0.00..4794.00 rows=50 width=84) (actual time=17.250..17.599 rows=154.00 loops=1)
+        Filter: ((started_at IS NULL) AND (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'ASSIGNED'::text))
+        Rows Removed by Filter: 149846
+        Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=66
+Planning Time: 1.550 ms
+Execution Time: 19.517 ms
+=== W05 run 3 ===
+Update on bookings  (cost=0.00..4794.00 rows=0 width=0) (actual time=21.498..21.499 rows=0.00 loops=1)
+  Buffers: shared hit=3766 dirtied=1
+  ->  Seq Scan on bookings  (cost=0.00..4794.00 rows=50 width=84) (actual time=19.877..20.131 rows=154.00 loops=1)
+        Filter: ((started_at IS NULL) AND (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'ASSIGNED'::text))
+        Rows Removed by Filter: 149846
+        Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=66
+Planning Time: 2.384 ms
+Execution Time: 21.711 ms
