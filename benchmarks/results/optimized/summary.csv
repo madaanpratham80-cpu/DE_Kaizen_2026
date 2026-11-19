@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,0.073,0.071,0.065,0.082,Seq Scan on services | Seq Scan on service_categories
+R02,READ,0.339,0.225,0.222,0.569,Index Scan using idx_pros_city_active_rating on professionals | Index Only Scan using pro_skills_pkey on pro_skills | Seq Scan on service_categories | Index Scan using pro_availability_pkey on pro_availability | Index Only Scan using idx_bookings_active_pro_slots on bookings
+R03,READ,0.230,0.065,0.061,0.564,Seq Scan on services | Index Only Scan using idx_bookings_customer_sched on bookings | Index Scan using professionals_pkey on professionals
+R04,READ,0.044,0.045,0.042,0.046,Seq Scan on services | Index Scan using idx_bookings_pro_sched on bookings
+R05,READ,0.102,0.036,0.033,0.238,Index Only Scan using idx_bookings_requested on bookings
+R06,READ,0.032,0.033,0.024,0.040,Index Scan using customers_phone_key on customers
+R07,READ,0.217,0.085,0.063,0.502,Index Only Scan using idx_bookings_pro_completed on bookings
+R08,READ,0.688,0.617,0.592,0.855,Seq Scan on professionals | Index Only Scan using idx_payouts_pending_week on payouts
+R09,READ,1.821,1.813,1.785,1.865,Index Only Scan using idx_bookings_completed_sched on bookings | Seq Scan on services | Seq Scan on service_categories
+R10,READ,13.590,13.535,12.922,14.313,Index Only Scan using idx_bookings_pro_status on bookings
+R11,READ,0.811,0.926,0.518,0.990,Index Only Scan using idx_reschedules_created on reschedules | Index Scan using bookings_pkey on bookings | Index Scan using services_pkey on services
+R12,READ,0.884,0.885,0.845,0.921,Index Only Scan using idx_bookings_discount_booked on bookings
+R13,READ,0.776,0.613,0.587,1.129,Index Scan using professionals_pkey on professionals | Index Only Scan using idx_bookings_cancelled_customer on bookings
+R14,READ,21.422,21.060,18.756,24.451,Index Only Scan using idx_bookings_city_sched on bookings | Seq Scan on services
+R15,READ,14.126,14.389,11.215,16.774,Seq Scan on bookings | Index Only Scan using idx_reviews_created on reviews
+R16,READ,0.388,0.185,0.182,0.796,Index Only Scan using idx_bookings_city_booked on bookings
+R17,READ,12.021,11.989,11.474,12.599,Index Only Scan using idx_bookings_completed_customer_cat on bookings | Seq Scan on services
+R18,READ,0.191,0.197,0.171,0.205,Index Scan using idx_reviews_created on reviews
+R19,READ,18.765,18.911,17.789,19.595,Index Only Scan using idx_bookings_completed_sched on bookings | Seq Scan on bookings | Bitmap Heap Scan on professionals | Bitmap Index Scan on idx_pros_city_active_rating
+R20,READ,1.846,1.316,1.301,2.922,Index Only Scan using idx_bookings_completed_sched on bookings
+R21,READ,10.534,10.390,10.138,11.073,Index Only Scan using idx_bookings_completed_skills on bookings | Seq Scan on services | Seq Scan on pro_skills
+R22,READ,7.078,6.134,6.057,9.043,Index Only Scan using idx_bookings_booked_at_desc on bookings
+R23,READ,0.064,0.045,0.044,0.103,Seq Scan on services | Index Scan using bookings_pkey on bookings
+R24,READ,0.401,0.270,0.255,0.679,Index Only Scan using idx_bookings_cancellation_fee on bookings
+R25,READ,3.210,2.717,2.399,4.515,Index Only Scan using idx_pro_avail_date_pro on pro_availability | Seq Scan on professionals | Index Scan using idx_bookings_completed_sched on bookings
+W01,WRITE,1.249,0.958,0.930,1.858,(no scan)
+W02,WRITE,0.660,0.477,0.429,1.074,Index Only Scan using idx_bookings_requested_id on bookings | Index Scan using bookings_pkey on bookings
+W03,WRITE,0.499,0.294,0.281,0.922,Index Scan using idx_bookings_active_pro_slots on bookings
+W04,WRITE,3.214,2.968,2.876,3.797,Index Only Scan using idx_bookings_completed_payout_week on bookings
+W05,WRITE,12.615,3.206,3.093,31.545,Index Scan using idx_bookings_assigned_noshow on bookings

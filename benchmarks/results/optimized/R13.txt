@@ -1,0 +1,51 @@
+=== R13 run 1 ===
+Merge Anti Join  (cost=0.57..516.84 rows=257 width=22) (actual time=0.493..1.106 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=35 read=12
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..109.03 rows=2220 width=22) (actual time=0.004..0.192 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=34
+  ->  Index Only Scan using idx_bookings_cancelled_customer on bookings b  (cost=0.29..279.85 rows=12295 width=4) (actual time=0.259..0.501 rows=6062.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=1 read=12
+Planning:
+  Buffers: shared hit=682
+Planning Time: 0.944 ms
+Execution Time: 1.129 ms
+=== R13 run 2 ===
+Merge Anti Join  (cost=0.57..516.84 rows=257 width=22) (actual time=0.014..0.589 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=47
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..109.03 rows=2220 width=22) (actual time=0.004..0.210 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=34
+  ->  Index Only Scan using idx_bookings_cancelled_customer on bookings b  (cost=0.29..279.85 rows=12295 width=4) (actual time=0.006..0.173 rows=6062.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=13
+Planning:
+  Buffers: shared hit=682
+Planning Time: 0.967 ms
+Execution Time: 0.613 ms
+=== R13 run 3 ===
+Merge Anti Join  (cost=0.57..516.84 rows=257 width=22) (actual time=0.012..0.566 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=47
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..109.03 rows=2220 width=22) (actual time=0.004..0.194 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=34
+  ->  Index Only Scan using idx_bookings_cancelled_customer on bookings b  (cost=0.29..279.85 rows=12295 width=4) (actual time=0.005..0.169 rows=6062.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=13
+Planning:
+  Buffers: shared hit=682
+Planning Time: 0.910 ms
+Execution Time: 0.587 ms
