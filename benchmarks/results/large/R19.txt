@@ -1,0 +1,162 @@
+=== R19 run 1 ===
+Sort  (cost=90358.67..90376.47 rows=7118 width=32) (actual time=924.599..925.450 rows=7073.00 loops=1)
+  Sort Key: (COALESCE((count(*)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 541kB
+  Buffers: shared hit=5222 read=47150
+  ->  Hash Right Join  (cost=89021.51..89903.22 rows=7118 width=32) (actual time=902.233..922.238 rows=7073.00 loops=1)
+        Hash Cond: (bookings.pro_id = p.pro_id)
+        Buffers: shared hit=5219 read=47150
+        ->  HashAggregate  (cost=7283.46..7633.71 rows=35025 width=12) (actual time=95.550..106.300 rows=37930.00 loops=1)
+              Group Key: bookings.pro_id
+              Batches: 1  Memory Usage: 2585kB
+              Buffers: shared hit=1011
+              ->  Index Only Scan using idx_bookings_completed_sched on bookings  (cost=0.43..6606.26 rows=135441 width=4) (actual time=0.267..40.805 rows=140959.00 loops=1)
+                    Index Cond: ((scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=1011
+        ->  Hash  (cost=81649.08..81649.08 rows=7118 width=24) (actual time=806.575..806.660 rows=7073.00 loops=1)
+              Buckets: 8192  Batches: 1  Memory Usage: 468kB
+              Buffers: shared hit=4208 read=47150
+              ->  Hash Right Join  (cost=80839.81..81649.08 rows=7118 width=24) (actual time=787.504..804.969 rows=7073.00 loops=1)
+                    Hash Cond: (bookings_1.pro_id = p.pro_id)
+                    Buffers: shared hit=4208 read=47150
+                    ->  Finalize HashAggregate  (cost=79923.49..80281.17 rows=35768 width=12) (actual time=775.325..785.690 rows=44065.00 loops=1)
+                          Group Key: bookings_1.pro_id
+                          Batches: 1  Memory Usage: 2841kB
+                          Buffers: shared hit=3685 read=47115
+                          ->  Gather  (cost=70552.29..79494.27 rows=85843 width=12) (actual time=701.630..725.075 rows=132130.00 loops=1)
+                                Workers Planned: 2
+                                Workers Launched: 2
+                                Buffers: shared hit=3685 read=47115
+                                ->  Partial HashAggregate  (cost=69552.29..69909.97 rows=35768 width=12) (actual time=658.246..669.780 rows=44043.33 loops=3)
+                                      Group Key: bookings_1.pro_id
+                                      Batches: 1  Memory Usage: 2841kB
+                                      Buffers: shared hit=3685 read=47115
+                                      Worker 0:  Batches: 1  Memory Usage: 2841kB
+                                      Worker 1:  Batches: 1  Memory Usage: 2841kB
+                                      ->  Parallel Seq Scan on bookings bookings_1  (cost=0.00..63301.53 rows=1250153 width=12) (actual time=0.934..109.513 rows=1000000.00 loops=3)
+                                            Buffers: shared hit=3685 read=47115
+                    ->  Hash  (cost=827.35..827.35 rows=7118 width=16) (actual time=12.051..12.052 rows=7073.00 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 398kB
+                          Buffers: shared hit=523 read=35
+                          ->  Bitmap Heap Scan on professionals p  (cost=203.58..827.35 rows=7118 width=16) (actual time=4.409..9.962 rows=7073.00 loops=1)
+                                Recheck Cond: ((city_id = 1) AND ((status)::text = 'ACTIVE'::text))
+                                Heap Blocks: exact=517
+                                Buffers: shared hit=523 read=35
+                                ->  Bitmap Index Scan on idx_pros_city_active_rating  (cost=0.00..201.80 rows=7118 width=0) (actual time=3.240..3.240 rows=7073.00 loops=1)
+                                      Index Cond: (city_id = 1)
+                                      Index Searches: 1
+                                      Buffers: shared hit=6 read=35
+Planning:
+  Buffers: shared hit=631
+Planning Time: 22.752 ms
+Execution Time: 929.077 ms
+=== R19 run 2 ===
+Sort  (cost=90358.67..90376.47 rows=7118 width=32) (actual time=796.917..797.618 rows=7073.00 loops=1)
+  Sort Key: (COALESCE((count(*)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 541kB
+  Buffers: shared hit=5287 read=47085
+  ->  Hash Right Join  (cost=89021.51..89903.22 rows=7118 width=32) (actual time=778.243..794.454 rows=7073.00 loops=1)
+        Hash Cond: (bookings.pro_id = p.pro_id)
+        Buffers: shared hit=5284 read=47085
+        ->  HashAggregate  (cost=7283.46..7633.71 rows=35025 width=12) (actual time=67.978..76.952 rows=37930.00 loops=1)
+              Group Key: bookings.pro_id
+              Batches: 1  Memory Usage: 2585kB
+              Buffers: shared hit=1011
+              ->  Index Only Scan using idx_bookings_completed_sched on bookings  (cost=0.43..6606.26 rows=135441 width=4) (actual time=0.181..24.917 rows=140959.00 loops=1)
+                    Index Cond: ((scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=1011
+        ->  Hash  (cost=81649.08..81649.08 rows=7118 width=24) (actual time=710.229..710.315 rows=7073.00 loops=1)
+              Buckets: 8192  Batches: 1  Memory Usage: 468kB
+              Buffers: shared hit=4273 read=47085
+              ->  Hash Right Join  (cost=80839.81..81649.08 rows=7118 width=24) (actual time=691.294..708.366 rows=7073.00 loops=1)
+                    Hash Cond: (bookings_1.pro_id = p.pro_id)
+                    Buffers: shared hit=4273 read=47085
+                    ->  Finalize HashAggregate  (cost=79923.49..80281.17 rows=35768 width=12) (actual time=686.170..695.957 rows=44065.00 loops=1)
+                          Group Key: bookings_1.pro_id
+                          Batches: 1  Memory Usage: 2841kB
+                          Buffers: shared hit=3715 read=47085
+                          ->  Gather  (cost=70552.29..79494.27 rows=85843 width=12) (actual time=621.247..642.870 rows=132131.00 loops=1)
+                                Workers Planned: 2
+                                Workers Launched: 2
+                                Buffers: shared hit=3715 read=47085
+                                ->  Partial HashAggregate  (cost=69552.29..69909.97 rows=35768 width=12) (actual time=586.749..597.325 rows=44043.67 loops=3)
+                                      Group Key: bookings_1.pro_id
+                                      Batches: 1  Memory Usage: 2841kB
+                                      Buffers: shared hit=3715 read=47085
+                                      Worker 0:  Batches: 1  Memory Usage: 2841kB
+                                      Worker 1:  Batches: 1  Memory Usage: 2841kB
+                                      ->  Parallel Seq Scan on bookings bookings_1  (cost=0.00..63301.53 rows=1250153 width=12) (actual time=1.084..85.677 rows=1000000.00 loops=3)
+                                            Buffers: shared hit=3715 read=47085
+                    ->  Hash  (cost=827.35..827.35 rows=7118 width=16) (actual time=5.022..5.024 rows=7073.00 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 398kB
+                          Buffers: shared hit=558
+                          ->  Bitmap Heap Scan on professionals p  (cost=203.58..827.35 rows=7118 width=16) (actual time=0.489..3.808 rows=7073.00 loops=1)
+                                Recheck Cond: ((city_id = 1) AND ((status)::text = 'ACTIVE'::text))
+                                Heap Blocks: exact=517
+                                Buffers: shared hit=558
+                                ->  Bitmap Index Scan on idx_pros_city_active_rating  (cost=0.00..201.80 rows=7118 width=0) (actual time=0.397..0.397 rows=7073.00 loops=1)
+                                      Index Cond: (city_id = 1)
+                                      Index Searches: 1
+                                      Buffers: shared hit=41
+Planning:
+  Buffers: shared hit=631
+Planning Time: 15.949 ms
+Execution Time: 800.796 ms
+=== R19 run 3 ===
+Sort  (cost=90358.67..90376.47 rows=7118 width=32) (actual time=1026.431..1027.308 rows=7073.00 loops=1)
+  Sort Key: (COALESCE((count(*)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 541kB
+  Buffers: shared hit=5569 read=46803
+  ->  Hash Right Join  (cost=89021.51..89903.22 rows=7118 width=32) (actual time=1003.801..1023.585 rows=7073.00 loops=1)
+        Hash Cond: (bookings.pro_id = p.pro_id)
+        Buffers: shared hit=5566 read=46803
+        ->  HashAggregate  (cost=7283.46..7633.71 rows=35025 width=12) (actual time=89.881..100.805 rows=37930.00 loops=1)
+              Group Key: bookings.pro_id
+              Batches: 1  Memory Usage: 2585kB
+              Buffers: shared hit=1011
+              ->  Index Only Scan using idx_bookings_completed_sched on bookings  (cost=0.43..6606.26 rows=135441 width=4) (actual time=0.241..38.776 rows=140959.00 loops=1)
+                    Index Cond: ((scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=1011
+        ->  Hash  (cost=81649.08..81649.08 rows=7118 width=24) (actual time=913.834..913.918 rows=7073.00 loops=1)
+              Buckets: 8192  Batches: 1  Memory Usage: 468kB
+              Buffers: shared hit=4555 read=46803
+              ->  Hash Right Join  (cost=80839.81..81649.08 rows=7118 width=24) (actual time=893.581..911.993 rows=7073.00 loops=1)
+                    Hash Cond: (bookings_1.pro_id = p.pro_id)
+                    Buffers: shared hit=4555 read=46803
+                    ->  Finalize HashAggregate  (cost=79923.49..80281.17 rows=35768 width=12) (actual time=885.180..895.775 rows=44065.00 loops=1)
+                          Group Key: bookings_1.pro_id
+                          Batches: 1  Memory Usage: 2841kB
+                          Buffers: shared hit=3997 read=46803
+                          ->  Gather  (cost=70552.29..79494.27 rows=85843 width=12) (actual time=813.652..837.068 rows=132133.00 loops=1)
+                                Workers Planned: 2
+                                Workers Launched: 2
+                                Buffers: shared hit=3997 read=46803
+                                ->  Partial HashAggregate  (cost=69552.29..69909.97 rows=35768 width=12) (actual time=776.603..788.068 rows=44044.33 loops=3)
+                                      Group Key: bookings_1.pro_id
+                                      Batches: 1  Memory Usage: 2841kB
+                                      Buffers: shared hit=3997 read=46803
+                                      Worker 0:  Batches: 1  Memory Usage: 2841kB
+                                      Worker 1:  Batches: 1  Memory Usage: 2841kB
+                                      ->  Parallel Seq Scan on bookings bookings_1  (cost=0.00..63301.53 rows=1250153 width=12) (actual time=0.967..146.318 rows=1000000.00 loops=3)
+                                            Buffers: shared hit=3997 read=46803
+                    ->  Hash  (cost=827.35..827.35 rows=7118 width=16) (actual time=7.992..7.993 rows=7073.00 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 398kB
+                          Buffers: shared hit=558
+                          ->  Bitmap Heap Scan on professionals p  (cost=203.58..827.35 rows=7118 width=16) (actual time=0.836..5.862 rows=7073.00 loops=1)
+                                Recheck Cond: ((city_id = 1) AND ((status)::text = 'ACTIVE'::text))
+                                Heap Blocks: exact=517
+                                Buffers: shared hit=558
+                                ->  Bitmap Index Scan on idx_pros_city_active_rating  (cost=0.00..201.80 rows=7118 width=0) (actual time=0.676..0.677 rows=7073.00 loops=1)
+                                      Index Cond: (city_id = 1)
+                                      Index Searches: 1
+                                      Buffers: shared hit=41
+Planning:
+  Buffers: shared hit=631
+Planning Time: 25.294 ms
+Execution Time: 1031.346 ms

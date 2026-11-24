@@ -1,0 +1,57 @@
+=== R13 run 1 ===
+Hash Right Anti Join  (cost=1693.38..9093.38 rows=12546 width=22) (actual time=64.905..67.669 rows=7189.00 loops=1)
+  Hash Cond: (b.pro_id = p.pro_id)
+  Buffers: shared hit=44735 read=308
+  ->  Index Only Scan using idx_bookings_cancelled_customer on bookings b  (cost=0.42..4891.85 rows=237029 width=4) (actual time=0.622..31.488 rows=238918.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=44218 read=308
+  ->  Hash  (cost=1142.00..1142.00 rows=44077 width=22) (actual time=12.560..12.561 rows=44064.00 loops=1)
+        Buckets: 65536  Batches: 1  Memory Usage: 2880kB
+        Buffers: shared hit=517
+        ->  Seq Scan on professionals p  (cost=0.00..1142.00 rows=44077 width=22) (actual time=0.022..6.893 rows=44064.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 5936
+              Buffers: shared hit=517
+Planning:
+  Buffers: shared hit=681
+Planning Time: 12.036 ms
+Execution Time: 68.321 ms
+=== R13 run 2 ===
+Hash Right Anti Join  (cost=1693.38..9093.38 rows=12546 width=22) (actual time=57.169..59.428 rows=7189.00 loops=1)
+  Hash Cond: (b.pro_id = p.pro_id)
+  Buffers: shared hit=45043
+  ->  Index Only Scan using idx_bookings_cancelled_customer on bookings b  (cost=0.42..4891.85 rows=237029 width=4) (actual time=0.030..23.199 rows=238918.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=44526
+  ->  Hash  (cost=1142.00..1142.00 rows=44077 width=22) (actual time=13.889..13.890 rows=44064.00 loops=1)
+        Buckets: 65536  Batches: 1  Memory Usage: 2880kB
+        Buffers: shared hit=517
+        ->  Seq Scan on professionals p  (cost=0.00..1142.00 rows=44077 width=22) (actual time=0.021..7.827 rows=44064.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 5936
+              Buffers: shared hit=517
+Planning:
+  Buffers: shared hit=681
+Planning Time: 11.789 ms
+Execution Time: 60.028 ms
+=== R13 run 3 ===
+Hash Right Anti Join  (cost=1693.38..9093.38 rows=12546 width=22) (actual time=57.147..59.319 rows=7189.00 loops=1)
+  Hash Cond: (b.pro_id = p.pro_id)
+  Buffers: shared hit=45043
+  ->  Index Only Scan using idx_bookings_cancelled_customer on bookings b  (cost=0.42..4891.85 rows=237029 width=4) (actual time=0.030..23.209 rows=238918.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=44526
+  ->  Hash  (cost=1142.00..1142.00 rows=44077 width=22) (actual time=13.805..13.806 rows=44064.00 loops=1)
+        Buckets: 65536  Batches: 1  Memory Usage: 2880kB
+        Buffers: shared hit=517
+        ->  Seq Scan on professionals p  (cost=0.00..1142.00 rows=44077 width=22) (actual time=0.025..7.881 rows=44064.00 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 5936
+              Buffers: shared hit=517
+Planning:
+  Buffers: shared hit=681
+Planning Time: 12.788 ms
+Execution Time: 59.805 ms

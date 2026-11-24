@@ -1,0 +1,129 @@
+=== R02 run 1 ===
+Limit  (cost=1.42..73.87 rows=10 width=22) (actual time=2.472..12.504 rows=10.00 loops=1)
+  Buffers: shared hit=62 read=78
+  ->  Nested Loop Anti Join  (cost=1.42..7840.41 rows=1082 width=22) (actual time=2.472..12.501 rows=10.00 loops=1)
+        Buffers: shared hit=62 read=78
+        ->  Nested Loop  (cost=1.14..7481.21 rows=1083 width=22) (actual time=2.084..10.992 rows=10.00 loops=1)
+              Buffers: shared hit=40 read=68
+              ->  Nested Loop  (cost=0.71..6117.68 rows=1424 width=26) (actual time=1.741..6.946 rows=10.00 loops=1)
+                    Join Filter: (ps.category_id = c.category_id)
+                    Rows Removed by Join Filter: 23
+                    Buffers: shared hit=26 read=42
+                    ->  Nested Loop  (cost=0.71..5903.01 rows=14236 width=28) (actual time=0.814..6.878 rows=33.00 loops=1)
+                          Buffers: shared hit=25 read=42
+                          ->  Index Scan using idx_pros_city_active_rating on professionals p  (cost=0.41..2325.50 rows=7118 width=22) (actual time=0.787..3.901 rows=20.00 loops=1)
+                                Index Cond: (city_id = 1)
+                                Index Searches: 1
+                                Buffers: shared hit=3 read=23
+                          ->  Index Only Scan using pro_skills_pkey on pro_skills ps  (cost=0.29..0.48 rows=2 width=6) (actual time=0.145..0.146 rows=1.65 loops=20)
+                                Index Cond: (pro_id = p.pro_id)
+                                Heap Fetches: 0
+                                Index Searches: 20
+                                Buffers: shared hit=22 read=19
+                    ->  Materialize  (cost=0.00..1.13 rows=1 width=2) (actual time=0.001..0.001 rows=1.00 loops=33)
+                          Storage: Memory  Maximum Storage: 17kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on service_categories c  (cost=0.00..1.12 rows=1 width=2) (actual time=0.023..0.024 rows=1.00 loops=1)
+                                Filter: ((category_name)::text = 'Salon for Women'::text)
+                                Rows Removed by Filter: 9
+                                Buffers: shared hit=1
+              ->  Index Scan using pro_availability_pkey on pro_availability a  (cost=0.43..0.96 rows=1 width=4) (actual time=0.403..0.403 rows=1.00 loops=10)
+                    Index Cond: ((pro_id = ps.pro_id) AND (work_date = '2026-07-03'::date))
+                    Filter: ((start_time <= '11:00:00'::time without time zone) AND (end_time >= '12:30:00'::time without time zone))
+                    Index Searches: 10
+                    Buffers: shared hit=14 read=26
+        ->  Index Only Scan using idx_bookings_active_pro_slots on bookings b  (cost=0.29..0.33 rows=1 width=4) (actual time=0.149..0.149 rows=0.00 loops=10)
+              Index Cond: ((pro_id = p.pro_id) AND (scheduled_start < '2026-07-03 12:30:00+05:30'::timestamp with time zone) AND (scheduled_end > '2026-07-03 11:00:00+05:30'::timestamp with time zone))
+              Heap Fetches: 0
+              Index Searches: 10
+              Buffers: shared hit=22 read=10
+Planning:
+  Buffers: shared hit=1035 read=16
+Planning Time: 52.520 ms
+Execution Time: 12.734 ms
+=== R02 run 2 ===
+Limit  (cost=1.42..73.87 rows=10 width=22) (actual time=0.154..0.405 rows=10.00 loops=1)
+  Buffers: shared hit=140
+  ->  Nested Loop Anti Join  (cost=1.42..7840.41 rows=1082 width=22) (actual time=0.154..0.403 rows=10.00 loops=1)
+        Buffers: shared hit=140
+        ->  Nested Loop  (cost=1.14..7481.21 rows=1083 width=22) (actual time=0.106..0.314 rows=10.00 loops=1)
+              Buffers: shared hit=108
+              ->  Nested Loop  (cost=0.71..6117.68 rows=1424 width=26) (actual time=0.087..0.213 rows=10.00 loops=1)
+                    Join Filter: (ps.category_id = c.category_id)
+                    Rows Removed by Join Filter: 23
+                    Buffers: shared hit=68
+                    ->  Nested Loop  (cost=0.71..5903.01 rows=14236 width=28) (actual time=0.046..0.181 rows=33.00 loops=1)
+                          Buffers: shared hit=67
+                          ->  Index Scan using idx_pros_city_active_rating on professionals p  (cost=0.41..2325.50 rows=7118 width=22) (actual time=0.037..0.086 rows=20.00 loops=1)
+                                Index Cond: (city_id = 1)
+                                Index Searches: 1
+                                Buffers: shared hit=26
+                          ->  Index Only Scan using pro_skills_pkey on pro_skills ps  (cost=0.29..0.48 rows=2 width=6) (actual time=0.004..0.004 rows=1.65 loops=20)
+                                Index Cond: (pro_id = p.pro_id)
+                                Heap Fetches: 0
+                                Index Searches: 20
+                                Buffers: shared hit=41
+                    ->  Materialize  (cost=0.00..1.13 rows=1 width=2) (actual time=0.001..0.001 rows=1.00 loops=33)
+                          Storage: Memory  Maximum Storage: 17kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on service_categories c  (cost=0.00..1.12 rows=1 width=2) (actual time=0.016..0.017 rows=1.00 loops=1)
+                                Filter: ((category_name)::text = 'Salon for Women'::text)
+                                Rows Removed by Filter: 9
+                                Buffers: shared hit=1
+              ->  Index Scan using pro_availability_pkey on pro_availability a  (cost=0.43..0.96 rows=1 width=4) (actual time=0.010..0.010 rows=1.00 loops=10)
+                    Index Cond: ((pro_id = ps.pro_id) AND (work_date = '2026-07-03'::date))
+                    Filter: ((start_time <= '11:00:00'::time without time zone) AND (end_time >= '12:30:00'::time without time zone))
+                    Index Searches: 10
+                    Buffers: shared hit=40
+        ->  Index Only Scan using idx_bookings_active_pro_slots on bookings b  (cost=0.29..0.33 rows=1 width=4) (actual time=0.008..0.008 rows=0.00 loops=10)
+              Index Cond: ((pro_id = p.pro_id) AND (scheduled_start < '2026-07-03 12:30:00+05:30'::timestamp with time zone) AND (scheduled_end > '2026-07-03 11:00:00+05:30'::timestamp with time zone))
+              Heap Fetches: 0
+              Index Searches: 10
+              Buffers: shared hit=32
+Planning:
+  Buffers: shared hit=1051
+Planning Time: 18.550 ms
+Execution Time: 0.469 ms
+=== R02 run 3 ===
+Limit  (cost=1.42..73.87 rows=10 width=22) (actual time=0.161..0.416 rows=10.00 loops=1)
+  Buffers: shared hit=140
+  ->  Nested Loop Anti Join  (cost=1.42..7840.41 rows=1082 width=22) (actual time=0.161..0.415 rows=10.00 loops=1)
+        Buffers: shared hit=140
+        ->  Nested Loop  (cost=1.14..7481.21 rows=1083 width=22) (actual time=0.115..0.327 rows=10.00 loops=1)
+              Buffers: shared hit=108
+              ->  Nested Loop  (cost=0.71..6117.68 rows=1424 width=26) (actual time=0.097..0.227 rows=10.00 loops=1)
+                    Join Filter: (ps.category_id = c.category_id)
+                    Rows Removed by Join Filter: 23
+                    Buffers: shared hit=68
+                    ->  Nested Loop  (cost=0.71..5903.01 rows=14236 width=28) (actual time=0.048..0.187 rows=33.00 loops=1)
+                          Buffers: shared hit=67
+                          ->  Index Scan using idx_pros_city_active_rating on professionals p  (cost=0.41..2325.50 rows=7118 width=22) (actual time=0.037..0.086 rows=20.00 loops=1)
+                                Index Cond: (city_id = 1)
+                                Index Searches: 1
+                                Buffers: shared hit=26
+                          ->  Index Only Scan using pro_skills_pkey on pro_skills ps  (cost=0.29..0.48 rows=2 width=6) (actual time=0.004..0.004 rows=1.65 loops=20)
+                                Index Cond: (pro_id = p.pro_id)
+                                Heap Fetches: 0
+                                Index Searches: 20
+                                Buffers: shared hit=41
+                    ->  Materialize  (cost=0.00..1.13 rows=1 width=2) (actual time=0.001..0.001 rows=1.00 loops=33)
+                          Storage: Memory  Maximum Storage: 17kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on service_categories c  (cost=0.00..1.12 rows=1 width=2) (actual time=0.022..0.023 rows=1.00 loops=1)
+                                Filter: ((category_name)::text = 'Salon for Women'::text)
+                                Rows Removed by Filter: 9
+                                Buffers: shared hit=1
+              ->  Index Scan using pro_availability_pkey on pro_availability a  (cost=0.43..0.96 rows=1 width=4) (actual time=0.010..0.010 rows=1.00 loops=10)
+                    Index Cond: ((pro_id = ps.pro_id) AND (work_date = '2026-07-03'::date))
+                    Filter: ((start_time <= '11:00:00'::time without time zone) AND (end_time >= '12:30:00'::time without time zone))
+                    Index Searches: 10
+                    Buffers: shared hit=40
+        ->  Index Only Scan using idx_bookings_active_pro_slots on bookings b  (cost=0.29..0.33 rows=1 width=4) (actual time=0.008..0.008 rows=0.00 loops=10)
+              Index Cond: ((pro_id = p.pro_id) AND (scheduled_start < '2026-07-03 12:30:00+05:30'::timestamp with time zone) AND (scheduled_end > '2026-07-03 11:00:00+05:30'::timestamp with time zone))
+              Heap Fetches: 0
+              Index Searches: 10
+              Buffers: shared hit=32
+Planning:
+  Buffers: shared hit=1051
+Planning Time: 20.009 ms
+Execution Time: 0.504 ms

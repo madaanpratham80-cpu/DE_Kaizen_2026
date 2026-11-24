@@ -1,0 +1,30 @@
+=== R05 run 1 ===
+Index Only Scan using idx_bookings_requested on bookings  (cost=0.28..74.41 rows=1493 width=20) (actual time=0.540..1.176 rows=864.00 loops=1)
+  Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+  Heap Fetches: 0
+  Index Searches: 1
+  Buffers: shared hit=1 read=6
+Planning:
+  Buffers: shared hit=521
+Planning Time: 9.315 ms
+Execution Time: 1.230 ms
+=== R05 run 2 ===
+Index Only Scan using idx_bookings_requested on bookings  (cost=0.28..74.41 rows=1493 width=20) (actual time=0.101..0.216 rows=864.00 loops=1)
+  Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+  Heap Fetches: 0
+  Index Searches: 1
+  Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=521
+Planning Time: 10.001 ms
+Execution Time: 0.272 ms
+=== R05 run 3 ===
+Index Only Scan using idx_bookings_requested on bookings  (cost=0.28..74.41 rows=1493 width=20) (actual time=0.082..0.174 rows=864.00 loops=1)
+  Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+  Heap Fetches: 0
+  Index Searches: 1
+  Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=521
+Planning Time: 9.801 ms
+Execution Time: 0.223 ms

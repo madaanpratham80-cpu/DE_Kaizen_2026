@@ -1,0 +1,30 @@
+=== W01 run 1 ===
+Insert on bookings  (cost=0.00..0.01 rows=0 width=0) (actual time=16.918..16.919 rows=0.00 loops=1)
+  Buffers: shared hit=435 read=23 dirtied=11
+  ->  Result  (cost=0.00..0.01 rows=1 width=298) (actual time=0.003..0.003 rows=1.00 loops=1)
+Planning Time: 0.347 ms
+Trigger for constraint bookings_customer_id_fkey: time=11.625 calls=1
+Trigger for constraint bookings_service_id_fkey: time=2.167 calls=1
+Trigger for constraint bookings_pro_id_fkey: time=0.076 calls=1
+Trigger for constraint bookings_city_id_fkey: time=10.519 calls=1
+Execution Time: 41.645 ms
+=== W01 run 2 ===
+Insert on bookings  (cost=0.00..0.01 rows=0 width=0) (actual time=2.352..2.352 rows=0.00 loops=1)
+  Buffers: shared hit=458 read=1 dirtied=1
+  ->  Result  (cost=0.00..0.01 rows=1 width=298) (actual time=0.002..0.002 rows=1.00 loops=1)
+Planning Time: 0.122 ms
+Trigger for constraint bookings_customer_id_fkey: time=3.126 calls=1
+Trigger for constraint bookings_service_id_fkey: time=2.151 calls=1
+Trigger for constraint bookings_pro_id_fkey: time=0.070 calls=1
+Trigger for constraint bookings_city_id_fkey: time=1.542 calls=1
+Execution Time: 9.292 ms
+=== W01 run 3 ===
+Insert on bookings  (cost=0.00..0.01 rows=0 width=0) (actual time=1.992..1.992 rows=0.00 loops=1)
+  Buffers: shared hit=458 read=1 dirtied=1
+  ->  Result  (cost=0.00..0.01 rows=1 width=298) (actual time=0.002..0.002 rows=1.00 loops=1)
+Planning Time: 0.113 ms
+Trigger for constraint bookings_customer_id_fkey: time=2.402 calls=1
+Trigger for constraint bookings_service_id_fkey: time=1.997 calls=1
+Trigger for constraint bookings_pro_id_fkey: time=0.060 calls=1
+Trigger for constraint bookings_city_id_fkey: time=1.605 calls=1
+Execution Time: 8.102 ms

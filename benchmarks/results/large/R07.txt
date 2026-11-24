@@ -1,0 +1,36 @@
+=== R07 run 1 ===
+Aggregate  (cost=8.47..8.48 rows=1 width=72) (actual time=0.823..0.824 rows=1.00 loops=1)
+  Buffers: shared hit=1 read=3
+  ->  Index Only Scan using idx_bookings_pro_completed on bookings  (cost=0.43..8.45 rows=1 width=13) (actual time=0.526..0.528 rows=2.00 loops=1)
+        Index Cond: ((pro_id = 425) AND (completed_at >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (completed_at < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=1 read=3
+Planning:
+  Buffers: shared hit=519 read=6
+Planning Time: 11.081 ms
+Execution Time: 0.871 ms
+=== R07 run 2 ===
+Aggregate  (cost=8.47..8.48 rows=1 width=72) (actual time=0.108..0.108 rows=1.00 loops=1)
+  Buffers: shared hit=4
+  ->  Index Only Scan using idx_bookings_pro_completed on bookings  (cost=0.43..8.45 rows=1 width=13) (actual time=0.089..0.090 rows=2.00 loops=1)
+        Index Cond: ((pro_id = 425) AND (completed_at >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (completed_at < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=525
+Planning Time: 10.497 ms
+Execution Time: 0.156 ms
+=== R07 run 3 ===
+Aggregate  (cost=8.47..8.48 rows=1 width=72) (actual time=0.120..0.120 rows=1.00 loops=1)
+  Buffers: shared hit=4
+  ->  Index Only Scan using idx_bookings_pro_completed on bookings  (cost=0.43..8.45 rows=1 width=13) (actual time=0.099..0.100 rows=2.00 loops=1)
+        Index Cond: ((pro_id = 425) AND (completed_at >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (completed_at < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=525
+Planning Time: 9.406 ms
+Execution Time: 0.170 ms

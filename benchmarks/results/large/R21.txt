@@ -1,0 +1,111 @@
+=== R21 run 1 ===
+Gather Merge  (cost=81126.65..93255.82 rows=104143 width=28) (actual time=1091.307..1104.188 rows=20350.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=72 read=10079
+  ->  Sort  (cost=80126.63..80235.11 rows=43393 width=28) (actual time=1035.359..1035.647 rows=6783.33 loops=3)
+        Sort Key: b.booking_id
+        Sort Method: quicksort  Memory: 510kB
+        Buffers: shared hit=72 read=10079
+        Worker 0:  Sort Method: quicksort  Memory: 514kB
+        Worker 1:  Sort Method: quicksort  Memory: 519kB
+        ->  Parallel Hash Anti Join  (cost=2648.75..76784.24 rows=43393 width=28) (actual time=81.014..1030.981 rows=6783.33 loops=3)
+              Hash Cond: ((b.pro_id = ps.pro_id) AND (s.category_id = ps.category_id))
+              Buffers: shared hit=56 read=10079
+              ->  Hash Join  (cost=2.78..65812.25 rows=1065297 width=30) (actual time=5.029..585.503 rows=852742.33 loops=3)
+                    Hash Cond: (b.service_id = s.service_id)
+                    Buffers: shared hit=53 read=9804
+                    ->  Parallel Index Only Scan using idx_bookings_completed_skills on bookings b  (cost=0.43..62815.97 rows=1065297 width=14) (actual time=3.818..388.019 rows=852742.33 loops=3)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=10 read=9804
+                    ->  Hash  (cost=1.60..1.60 rows=60 width=20) (actual time=1.158..1.159 rows=60.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=43
+                          ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=1.088..1.106 rows=60.00 loops=3)
+                                Buffers: shared hit=43
+              ->  Parallel Hash  (cost=2020.97..2020.97 rows=41667 width=6) (actual time=75.188..75.188 rows=33333.67 loops=3)
+                    Buckets: 131072  Batches: 1  Memory Usage: 4992kB
+                    Buffers: shared hit=3 read=275
+                    ->  Parallel Index Only Scan using idx_pro_skills_cat_pro on pro_skills ps  (cost=0.29..2020.97 rows=41667 width=6) (actual time=2.781..46.997 rows=33333.67 loops=3)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=3 read=275
+Planning:
+  Buffers: shared hit=821 read=2
+Planning Time: 16.887 ms
+Execution Time: 1105.201 ms
+=== R21 run 2 ===
+Gather Merge  (cost=81126.65..93255.82 rows=104143 width=28) (actual time=769.427..782.668 rows=20350.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=10151
+  ->  Sort  (cost=80126.63..80235.11 rows=43393 width=28) (actual time=698.368..698.714 rows=6783.33 loops=3)
+        Sort Key: b.booking_id
+        Sort Method: quicksort  Memory: 528kB
+        Buffers: shared hit=10151
+        Worker 0:  Sort Method: quicksort  Memory: 530kB
+        Worker 1:  Sort Method: quicksort  Memory: 484kB
+        ->  Parallel Hash Anti Join  (cost=2648.75..76784.24 rows=43393 width=28) (actual time=18.576..694.248 rows=6783.33 loops=3)
+              Hash Cond: ((b.pro_id = ps.pro_id) AND (s.category_id = ps.category_id))
+              Buffers: shared hit=10135
+              ->  Hash Join  (cost=2.78..65812.25 rows=1065297 width=30) (actual time=1.017..333.327 rows=852742.33 loops=3)
+                    Hash Cond: (b.service_id = s.service_id)
+                    Buffers: shared hit=9858
+                    ->  Parallel Index Only Scan using idx_bookings_completed_skills on bookings b  (cost=0.43..62815.97 rows=1065297 width=14) (actual time=0.113..134.986 rows=852742.33 loops=3)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=9815
+                    ->  Hash  (cost=1.60..1.60 rows=60 width=20) (actual time=0.888..0.889 rows=60.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=43
+                          ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.851..0.862 rows=60.00 loops=3)
+                                Buffers: shared hit=43
+              ->  Parallel Hash  (cost=2020.97..2020.97 rows=41667 width=6) (actual time=16.680..16.681 rows=33333.67 loops=3)
+                    Buckets: 131072  Batches: 1  Memory Usage: 4960kB
+                    Buffers: shared hit=277
+                    ->  Parallel Index Only Scan using idx_pro_skills_cat_pro on pro_skills ps  (cost=0.29..2020.97 rows=41667 width=6) (actual time=0.089..9.447 rows=50000.50 loops=2)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=277
+Planning:
+  Buffers: shared hit=823
+Planning Time: 21.053 ms
+Execution Time: 783.817 ms
+=== R21 run 3 ===
+Gather Merge  (cost=81126.65..93255.82 rows=104143 width=28) (actual time=655.783..669.800 rows=20350.00 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=10149
+  ->  Sort  (cost=80126.63..80235.11 rows=43393 width=28) (actual time=593.245..593.649 rows=6783.33 loops=3)
+        Sort Key: b.booking_id
+        Sort Method: quicksort  Memory: 536kB
+        Buffers: shared hit=10149
+        Worker 0:  Sort Method: quicksort  Memory: 472kB
+        Worker 1:  Sort Method: quicksort  Memory: 534kB
+        ->  Parallel Hash Anti Join  (cost=2648.75..76784.24 rows=43393 width=28) (actual time=10.263..590.513 rows=6783.33 loops=3)
+              Hash Cond: ((b.pro_id = ps.pro_id) AND (s.category_id = ps.category_id))
+              Buffers: shared hit=10133
+              ->  Hash Join  (cost=2.78..65812.25 rows=1065297 width=30) (actual time=0.545..311.878 rows=852742.33 loops=3)
+                    Hash Cond: (b.service_id = s.service_id)
+                    Buffers: shared hit=9857
+                    ->  Parallel Index Only Scan using idx_bookings_completed_skills on bookings b  (cost=0.43..62815.97 rows=1065297 width=14) (actual time=0.071..123.767 rows=852742.33 loops=3)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=9814
+                    ->  Hash  (cost=1.60..1.60 rows=60 width=20) (actual time=0.462..0.464 rows=60.00 loops=3)
+                          Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                          Buffers: shared hit=43
+                          ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.441..0.447 rows=60.00 loops=3)
+                                Buffers: shared hit=43
+              ->  Parallel Hash  (cost=2020.97..2020.97 rows=41667 width=6) (actual time=9.304..9.305 rows=33333.67 loops=3)
+                    Buckets: 131072  Batches: 1  Memory Usage: 4960kB
+                    Buffers: shared hit=276
+                    ->  Parallel Index Only Scan using idx_pro_skills_cat_pro on pro_skills ps  (cost=0.29..2020.97 rows=41667 width=6) (actual time=0.022..10.560 rows=100001.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=276
+Planning:
+  Buffers: shared hit=823
+Planning Time: 14.168 ms
+Execution Time: 670.915 ms

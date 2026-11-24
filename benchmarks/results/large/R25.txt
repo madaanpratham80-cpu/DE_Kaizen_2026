@@ -1,0 +1,147 @@
+=== R25 run 1 ===
+Limit  (cost=21620.44..21620.52 rows=30 width=100) (actual time=309.757..309.767 rows=30.00 loops=1)
+  Buffers: shared hit=25280 read=2318
+  ->  Sort  (cost=21620.44..21727.80 rows=42943 width=100) (actual time=309.755..309.762 rows=30.00 loops=1)
+        Sort Key: (COALESCE(b.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=25280 read=2318
+        ->  GroupAggregate  (cost=19063.86..20352.15 rows=42943 width=100) (actual time=283.781..307.424 rows=7073.00 loops=1)
+              Group Key: a.pro_id, b.booked_min
+              Buffers: shared hit=25277 read=2318
+              ->  Sort  (cost=19063.86..19171.21 rows=42943 width=52) (actual time=283.759..285.753 rows=42438.00 loops=1)
+                    Sort Key: a.pro_id, b.booked_min
+                    Sort Method: quicksort  Memory: 3265kB
+                    Buffers: shared hit=25277 read=2318
+                    ->  Hash Left Join  (cost=4366.52..15759.36 rows=42943 width=52) (actual time=163.905..269.736 rows=42438.00 loops=1)
+                          Hash Cond: (a.pro_id = b.pro_id)
+                          Buffers: shared hit=25274 read=2318
+                          ->  Hash Join  (cost=1243.37..12523.48 rows=42943 width=20) (actual time=7.899..100.750 rows=42438.00 loops=1)
+                                Hash Cond: (a.pro_id = p.pro_id)
+                                Buffers: shared hit=518 read=1305
+                                ->  Index Only Scan using idx_pro_avail_date_pro on pro_availability a  (cost=0.43..10582.49 rows=265903 width=20) (actual time=0.636..61.365 rows=264384.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Heap Fetches: 0
+                                      Index Searches: 1
+                                      Buffers: shared hit=1 read=1305
+                                ->  Hash  (cost=1142.00..1142.00 rows=8075 width=4) (actual time=7.218..7.219 rows=8000.00 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 346kB
+                                      Buffers: shared hit=517
+                                      ->  Seq Scan on professionals p  (cost=0.00..1142.00 rows=8075 width=4) (actual time=0.026..5.997 rows=8000.00 loops=1)
+                                            Filter: (city_id = 1)
+                                            Rows Removed by Filter: 42000
+                                            Buffers: shared hit=517
+                          ->  Hash  (cost=2865.59..2865.59 rows=20605 width=36) (actual time=155.891..155.893 rows=21471.00 loops=1)
+                                Buckets: 32768  Batches: 1  Memory Usage: 1179kB
+                                Buffers: shared hit=24756 read=1013
+                                ->  Subquery Scan on b  (cost=2401.98..2865.59 rows=20605 width=36) (actual time=137.926..151.313 rows=21471.00 loops=1)
+                                      Buffers: shared hit=24756 read=1013
+                                      ->  HashAggregate  (cost=2401.98..2659.54 rows=20605 width=36) (actual time=137.924..149.470 rows=21471.00 loops=1)
+                                            Group Key: bookings.pro_id
+                                            Batches: 1  Memory Usage: 7953kB
+                                            Buffers: shared hit=24756 read=1013
+                                            ->  Index Scan using idx_bookings_completed_sched on bookings  (cost=0.43..2020.24 rows=30539 width=20) (actual time=0.481..97.654 rows=32846.00 loops=1)
+                                                  Index Cond: ((scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=24756 read=1013
+Planning:
+  Buffers: shared hit=733 read=13
+Planning Time: 19.655 ms
+Execution Time: 311.923 ms
+=== R25 run 2 ===
+Limit  (cost=21620.44..21620.52 rows=30 width=100) (actual time=198.981..198.988 rows=30.00 loops=1)
+  Buffers: shared hit=27598
+  ->  Sort  (cost=21620.44..21727.80 rows=42943 width=100) (actual time=198.980..198.984 rows=30.00 loops=1)
+        Sort Key: (COALESCE(b.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=27598
+        ->  GroupAggregate  (cost=19063.86..20352.15 rows=42943 width=100) (actual time=177.423..197.359 rows=7073.00 loops=1)
+              Group Key: a.pro_id, b.booked_min
+              Buffers: shared hit=27595
+              ->  Sort  (cost=19063.86..19171.21 rows=42943 width=52) (actual time=177.402..179.045 rows=42438.00 loops=1)
+                    Sort Key: a.pro_id, b.booked_min
+                    Sort Method: quicksort  Memory: 3265kB
+                    Buffers: shared hit=27595
+                    ->  Hash Left Join  (cost=4366.52..15759.36 rows=42943 width=52) (actual time=72.417..161.160 rows=42438.00 loops=1)
+                          Hash Cond: (a.pro_id = b.pro_id)
+                          Buffers: shared hit=27592
+                          ->  Hash Join  (cost=1243.37..12523.48 rows=42943 width=20) (actual time=4.630..79.945 rows=42438.00 loops=1)
+                                Hash Cond: (a.pro_id = p.pro_id)
+                                Buffers: shared hit=1823
+                                ->  Index Only Scan using idx_pro_avail_date_pro on pro_availability a  (cost=0.43..10582.49 rows=265903 width=20) (actual time=0.029..39.753 rows=264384.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Heap Fetches: 0
+                                      Index Searches: 1
+                                      Buffers: shared hit=1306
+                                ->  Hash  (cost=1142.00..1142.00 rows=8075 width=4) (actual time=4.568..4.569 rows=8000.00 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 346kB
+                                      Buffers: shared hit=517
+                                      ->  Seq Scan on professionals p  (cost=0.00..1142.00 rows=8075 width=4) (actual time=0.023..3.806 rows=8000.00 loops=1)
+                                            Filter: (city_id = 1)
+                                            Rows Removed by Filter: 42000
+                                            Buffers: shared hit=517
+                          ->  Hash  (cost=2865.59..2865.59 rows=20605 width=36) (actual time=67.702..67.704 rows=21471.00 loops=1)
+                                Buckets: 32768  Batches: 1  Memory Usage: 1179kB
+                                Buffers: shared hit=25769
+                                ->  Subquery Scan on b  (cost=2401.98..2865.59 rows=20605 width=36) (actual time=52.277..63.346 rows=21471.00 loops=1)
+                                      Buffers: shared hit=25769
+                                      ->  HashAggregate  (cost=2401.98..2659.54 rows=20605 width=36) (actual time=52.276..61.404 rows=21471.00 loops=1)
+                                            Group Key: bookings.pro_id
+                                            Batches: 1  Memory Usage: 7953kB
+                                            Buffers: shared hit=25769
+                                            ->  Index Scan using idx_bookings_completed_sched on bookings  (cost=0.43..2020.24 rows=30539 width=20) (actual time=0.028..20.887 rows=32846.00 loops=1)
+                                                  Index Cond: ((scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=25769
+Planning:
+  Buffers: shared hit=746
+Planning Time: 13.457 ms
+Execution Time: 200.357 ms
+=== R25 run 3 ===
+Limit  (cost=21620.44..21620.52 rows=30 width=100) (actual time=165.876..165.882 rows=30.00 loops=1)
+  Buffers: shared hit=27598
+  ->  Sort  (cost=21620.44..21727.80 rows=42943 width=100) (actual time=165.874..165.878 rows=30.00 loops=1)
+        Sort Key: (COALESCE(b.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=27598
+        ->  GroupAggregate  (cost=19063.86..20352.15 rows=42943 width=100) (actual time=146.226..164.441 rows=7073.00 loops=1)
+              Group Key: a.pro_id, b.booked_min
+              Buffers: shared hit=27595
+              ->  Sort  (cost=19063.86..19171.21 rows=42943 width=52) (actual time=146.205..147.746 rows=42438.00 loops=1)
+                    Sort Key: a.pro_id, b.booked_min
+                    Sort Method: quicksort  Memory: 3265kB
+                    Buffers: shared hit=27595
+                    ->  Hash Left Join  (cost=4366.52..15759.36 rows=42943 width=52) (actual time=63.825..132.273 rows=42438.00 loops=1)
+                          Hash Cond: (a.pro_id = b.pro_id)
+                          Buffers: shared hit=27592
+                          ->  Hash Join  (cost=1243.37..12523.48 rows=42943 width=20) (actual time=5.594..64.017 rows=42438.00 loops=1)
+                                Hash Cond: (a.pro_id = p.pro_id)
+                                Buffers: shared hit=1823
+                                ->  Index Only Scan using idx_pro_avail_date_pro on pro_availability a  (cost=0.43..10582.49 rows=265903 width=20) (actual time=0.198..30.578 rows=264384.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Heap Fetches: 0
+                                      Index Searches: 1
+                                      Buffers: shared hit=1306
+                                ->  Hash  (cost=1142.00..1142.00 rows=8075 width=4) (actual time=5.249..5.249 rows=8000.00 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 346kB
+                                      Buffers: shared hit=517
+                                      ->  Seq Scan on professionals p  (cost=0.00..1142.00 rows=8075 width=4) (actual time=0.107..4.339 rows=8000.00 loops=1)
+                                            Filter: (city_id = 1)
+                                            Rows Removed by Filter: 42000
+                                            Buffers: shared hit=517
+                          ->  Hash  (cost=2865.59..2865.59 rows=20605 width=36) (actual time=58.156..58.157 rows=21471.00 loops=1)
+                                Buckets: 32768  Batches: 1  Memory Usage: 1179kB
+                                Buffers: shared hit=25769
+                                ->  Subquery Scan on b  (cost=2401.98..2865.59 rows=20605 width=36) (actual time=44.271..54.557 rows=21471.00 loops=1)
+                                      Buffers: shared hit=25769
+                                      ->  HashAggregate  (cost=2401.98..2659.54 rows=20605 width=36) (actual time=44.270..52.848 rows=21471.00 loops=1)
+                                            Group Key: bookings.pro_id
+                                            Batches: 1  Memory Usage: 7953kB
+                                            Buffers: shared hit=25769
+                                            ->  Index Scan using idx_bookings_completed_sched on bookings  (cost=0.43..2020.24 rows=30539 width=20) (actual time=0.032..17.817 rows=32846.00 loops=1)
+                                                  Index Cond: ((scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=25769
+Planning:
+  Buffers: shared hit=746
+Planning Time: 15.497 ms
+Execution Time: 167.786 ms
